@@ -13,7 +13,7 @@
     'use strict';
     function markAffiliateLinks() {
         // 获取页面中所有的<a>标签
-        const links = document.querySelectorAll('a');
+        const links = document.querySelectorAll('article a');
         links.forEach(link => {
             // 检查链接的href属性是否包含特定的推广参数
             if (/\?(aff=|a=|code=)|&(aff=|a=|code=)|regist#/.test(link.href)) {

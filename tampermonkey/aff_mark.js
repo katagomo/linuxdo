@@ -11,20 +11,26 @@
 
 (function() {
     'use strict';
+
     function markAffiliateLinks() {
-        // 获取页面中所有的<a>标签
         const links = document.querySelectorAll('article a');
         links.forEach(link => {
-            // 检查链接的href属性是否包含特定的推广参数
-            if (/\?(aff=|a=|code=)|&(aff=|a=|code=)|regist#/.test(link.href)) {
-                const badge = document.createElement('span');
-                badge.className = 'badge badge-notification';
-                badge.title = '本链接可能为推广链接';
-                badge.textContent = '包含aff';
-                link.appendChild(badge);
+            // 检查链接是否已经有aff属性
+            if (!link.hasAttribute('aff')) {
+                if (/\?(aff=|a=|code=)|&(aff=|a=|code=)|regist#/.test(link.href)) {
+                    const badge = document.createElement('span');
+                    badge.className = 'badge badge-notification';
+                    badge.title = '本链接可能为推广链接';
+                    badge.textContent = '包含aff';
+                    link.appendChild(badge);
+                    // 设为已标记
+                    link.setAttribute('aff', 'true');
+                }
             }
         });
     }
-
-    window.addEventListener('load', markAffiliateLinks);
+    markAffiliateLinks();
+    const observer = new MutationObserver(markAffiliateLinks);
+    const config = { childList: true, subtree: true };
+    observer.observe(document.body, config);
 })();

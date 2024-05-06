@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AFF标记
 // @namespace    http://tampermonkey.net/
-// @version      2024-05-05
+// @version      1.0
 // @description  Mark affiliate links with a badge
 // @author       MatsuzakaSato
 // @match        https://linux.do/*
@@ -22,6 +22,7 @@
                     badge.className = 'badge badge-notification';
                     badge.title = '本链接可能为推广链接';
                     badge.textContent = '包含aff';
+                    badge.style.setProperty('background-color', 'var(--hljs-string)')
                     link.appendChild(badge);
                     // 设为已标记
                     link.setAttribute('aff', 'true');
